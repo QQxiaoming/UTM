@@ -346,6 +346,11 @@ build () {
     pwd="$(pwd)"
 
     cd "$DIR"
+    if [ "$URL" == "$QEMU_SRC" ]; then
+        echo "${GREEN}Patch Quard Star QEMU...${NC}"
+        patch -d . -p1 < $PATCHES_DIR/quard_star_tutorial_qemu-7.0.0-utm.patch
+    fi
+
     if [ -z "$REBUILD" ]; then
         echo "${GREEN}Configuring ${NAME}...${NC}"
         ./configure --prefix="$PREFIX" --host="$CHOST" $@

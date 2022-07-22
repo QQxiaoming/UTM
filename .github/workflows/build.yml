@@ -2,7 +2,7 @@ name: Build
 on:
   push:
     branches:
-      - '**'
+      - 'quard_star'
     tags-ignore:
       - '**'
     paths-ignore:
@@ -70,7 +70,6 @@ jobs:
         if: steps.cache-sysroot.outputs.cache-hit != 'true' || github.event.inputs.rebuild_sysroot == 'true'
         run: ./scripts/build_dependencies.sh -p ${{ matrix.platform }} -a ${{ matrix.arch }}
       - name: Compress Sysroot
-        if: steps.cache-sysroot.outputs.cache-hit != 'true' || github.event_name == 'release' || github.event.inputs.test_release == 'true'
         run: tar -acf sysroot.tgz sysroot*
       - name: Upload Sysroot
         if: steps.cache-sysroot.outputs.cache-hit != 'true' || github.event_name == 'release' || github.event.inputs.test_release == 'true'
